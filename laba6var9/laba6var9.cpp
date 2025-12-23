@@ -79,17 +79,16 @@ GuessGame interactive_guesser() {
         feedback = co_await GetFeedback{};
 
         if (feedback == 0) co_return; 
-        if (feedback == -1) { 
+        if (feedback == 1) { 
             low = mid + 1;
         }
-        else if (feedback == 1) { 
+        else if (feedback == -1) { 
             high = mid - 1;
         }
     }
 }
 
 int main() {
-    setlocale(LC_ALL, "Ukrainian");
 
     std::cout << "--- Guess the number ---\n";
     std::cout << " from 1 to 100.\n";
@@ -100,7 +99,7 @@ int main() {
 
     while (game.next()) {
         int current_guess = game.get_current_guess();
-        std::cout << "[" << attempt << "] guess: " << current_guess << ". reaction: ";
+        std::cout << "[" << attempt << "] my guess: " << current_guess << ". ur reaction: ";
 
         int user_response;
         while (!(std::cin >> user_response) || user_response < -1 || user_response > 1) {
@@ -110,7 +109,7 @@ int main() {
         }
 
         if (user_response == 0) {
-            std::cout << "\nfinale " << current_guess << " for " << attempt << " attemt(s).\n";
+            std::cout << "\nfinale guess is " << current_guess << " for " << attempt << " attemt(s).\n";
             break;
         }
 
@@ -119,7 +118,7 @@ int main() {
     }
 
     if (attempt > 7 && !std::cin.eof()) {
-        std::cout << "\neror\n";
+        std::cout << "\nmav vporatis shvisdhe eror\n";
     }
 
     return 0;
